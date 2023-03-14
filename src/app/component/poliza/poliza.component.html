@@ -1,0 +1,76 @@
+<button type="button" class="btn btn-secondary" (click)="newPoliza()">
+    <i class="fa fa-plus" aria-hidden="true"></i> Add 
+  </button>
+  <table class="table caption-top">
+    <caption>Polizas</caption>
+
+    <thead class="table-dark">
+      <tr>
+        <th>IdPolizas</th>
+        <th>EmpleadoGenero</th>
+        <th>SKU</th>
+        <th>Cantidad</th>
+        <th>Fecha</th>
+        <th>Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listPoliza">
+        <td>{{item.IdPolizas}}</td>
+        <td>{{item.EmpleadoGenero}}</td>
+        <td>{{item.SKU}}</td>
+        <td>{{item.Cantidad}}</td>
+        <td>{{item.Fecha}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="updatePoliza(item)">
+            <i class="fa fa-pencil" aria-hidden="true"></i> 
+          </button>
+          <button type="button" class="btn btn-danger" (click)="delete(item.IdPolizas)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr> 
+    </tbody>
+  </table>
+
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="btn btn-danger" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+       <h4 *ngIf="!actualizar" class="modal-title">Agregar Poliza</h4>
+       <h4 *ngIf="actualizar" class="modal-title">Modificar Poliza</h4>
+     </div>
+     <div class="modal-body">
+      <form [formGroup]="formPoliza">
+        <div class="mb-3" *ngIf="actualizar">
+            <label for="IdPolizas" class="form-label">IdPolizas</label>
+            <input type="text" class="form-control" id="IdPolizas" formControlName="IdPolizas">
+          </div>
+          <div class="mb-3">
+            <label for="EmpleadoGenero" class="form-label">EmpleadoGenero</label>
+            <input type="text" class="form-control" id="EmpleadoGenero" formControlName="EmpleadoGenero">
+          </div>
+          <div class="mb-3">
+            <label for="SKU" class="form-label">SKU</label>
+            <input type="text" class="form-control" id="SKU" formControlName="SKU">
+          </div>
+        <div class="mb-3">
+          <label for="Cantidad" class="form-label">Cantidad</label>
+          <input type="text" class="form-control" id="Cantidad" formControlName="Cantidad">
+        </div>
+        <div class="mb-3">
+          <label for="Fecha" class="form-label">Fecha</label>
+          <input type="date" class="form-control" id="Fecha" formControlName="Fecha">
+        </div>
+        <button *ngIf="!actualizar" type="button" class="btn btn-primary"(click)="save()">Guardar</button>
+        <button *ngIf="actualizar" type="button" class="btn btn-primary"(click)="update()">Actualizar</button>
+       </form>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-light" (click)="onCloseHandled()" >Close</button>
+     </div>
+   </div><!-- /.modal-content -->
+ </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->
